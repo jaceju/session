@@ -120,6 +120,8 @@ class DatabaseSessionHandler implements SessionHandlerInterface, ExistenceAwareI
         }
 
         $this->exists = true;
+
+        return true;
     }
 
     /**
@@ -156,7 +158,7 @@ class DatabaseSessionHandler implements SessionHandlerInterface, ExistenceAwareI
      */
     public function destroy($sessionId)
     {
-        $this->getQuery()->where('id', $sessionId)->delete();
+        return $this->getQuery()->where('id', $sessionId)->delete();
     }
 
     /**
@@ -164,7 +166,7 @@ class DatabaseSessionHandler implements SessionHandlerInterface, ExistenceAwareI
      */
     public function gc($lifetime)
     {
-        $this->getQuery()->where('last_activity', '<=', Carbon::now()->timestamp - $lifetime)->delete();
+        return $this->getQuery()->where('last_activity', '<=', Carbon::now()->timestamp - $lifetime)->delete();
     }
 
     /**

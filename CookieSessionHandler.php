@@ -77,6 +77,7 @@ class CookieSessionHandler implements SessionHandlerInterface
             'data' => $data,
             'expires' => Carbon::now()->addMinutes($this->minutes)->getTimestamp(),
         ]), $this->minutes);
+        return true;
     }
 
     /**
@@ -85,6 +86,7 @@ class CookieSessionHandler implements SessionHandlerInterface
     public function destroy($sessionId)
     {
         $this->cookie->queue($this->cookie->forget($sessionId));
+        return true;
     }
 
     /**
